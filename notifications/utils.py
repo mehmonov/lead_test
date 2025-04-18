@@ -5,7 +5,6 @@ from django.contrib.auth.models import Group, User
 
 @shared_task
 def send_prospect_email_task(lead_id, first_name, email):
-    """Mijozga elektron pochta yuborish vazifasi"""
     send_mail(
         subject='Thank you for your application',
         message=(
@@ -21,8 +20,7 @@ def send_prospect_email_task(lead_id, first_name, email):
 
 @shared_task
 def send_attorney_email_task(lead_id, first_name, last_name, email, submitted_at):
-    """Attorney guruhidagi barcha foydalanuvchilarga elektron pochta yuborish vazifasi"""
-    # Attorney guruhidagi barcha foydalanuvchilarni topish
+
     try:
         attorney_group = Group.objects.get(name='attorney')
         attorney_users = User.objects.filter(groups=attorney_group)
@@ -31,7 +29,6 @@ def send_attorney_email_task(lead_id, first_name, last_name, email, submitted_at
         if not attorney_emails:
             return "No attorney emails found to notify"
 
-        # Barcha attorney foydalanuvchilarga elektron pochta yuborish
         send_mail(
             subject='New Lead Submitted',
             message=(
