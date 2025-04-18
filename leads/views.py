@@ -28,13 +28,3 @@ class LeadViewSet(viewsets.ModelViewSet):
             lead.email,
             lead.submitted_at.strftime('%Y-%m-%d %H:%M')
         )
-
-
-    @action(detail=True, methods=['patch'], permission_classes=[permissions.IsAuthenticated])
-    def reach_out(self, request, pk=None):
-        lead = self.get_object()
-        if lead.state == Lead.REACHED_OUT:
-            return Response({'detail': 'Lead is already marked as reached out.'}, status=400)
-        lead.state = Lead.REACHED_OUT
-        lead.save()
-        return Response({'status': 'Lead marked as reached out'})
