@@ -1,14 +1,12 @@
 from pathlib import Path
 from environs import env
 import os
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # read env
 env.read_env()
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-b-dfh%u6d3@s5y(oiv(5-$v-#omw1&i7o_p*!6c0!5$az(7osb'
@@ -70,7 +68,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST': env("HOST"),
+        'HOST': env('HOST'),
         'PORT': env("PORT"),
         'NAME': env("DBNAME"),
         'USER': env("DBUSER"),
