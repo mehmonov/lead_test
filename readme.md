@@ -1,4 +1,4 @@
-# Lead Management System
+# Lead Management
 
 This project is a simple lead collection and management system. It allows external users (prospects) to submit a public form. After submission, the system sends email notifications and allows internal staff to manage leads through a secure API.
 
@@ -25,6 +25,7 @@ This project is a simple lead collection and management system. It allows extern
 - `dev`: main development branch with core functionality
 
 - `swagger`: includes API documentation integration(Additional)
+
 
 ## Makefile Overview
 
@@ -65,3 +66,4 @@ make superuser
 ### PS *
 - Formats code and fixes imports via isort and black
 - After create superuser automatic create attorney group
+- Switch swagger branck and ```make docker-rebuild``` and click http://localhost:8000/api/docs/
