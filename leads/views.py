@@ -7,6 +7,7 @@ from .serializers import LeadSerializer
 
 
 class LeadViewSet(viewsets.ModelViewSet):
+
     queryset = Lead.objects.all().order_by("-submitted_at")
     serializer_class = LeadSerializer
 
