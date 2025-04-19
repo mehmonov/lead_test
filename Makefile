@@ -9,6 +9,7 @@ CELERY = celery
 install:
 	$(PIP) install -r requirements.txt
 
+
 migrate:
 	$(MANAGE) makemigrations
 	$(MANAGE) migrate
@@ -17,6 +18,8 @@ run:
 	$(MANAGE) migrate
 
 	$(MANAGE) runserver 0.0.0.0:8000
+
+	make linter
 
 test:
 	$(MANAGE) test
@@ -36,6 +39,11 @@ clean:
 	find . -name ".coverage" -delete
 	rm -rf htmlcov/
 
+
+linter:
+	isort users/*.py notifications/*.py leads/*.py
+	black users/*.py notifications/*.py leads/*.py
+
 docker-up:
 	docker compose  up -d --build
 
@@ -47,8 +55,11 @@ docker-logs:
 	docker compose logs -f --tail=50
 docker-shell:
 	docker compose exec web sh
-docker-superuser:
+superuser:
 	docker compose exec web python manage.py createsuperuser
 docker-rebuild:
 	make docker-down
 	make docker-up
+docker-migrate:
+	docker compose exec web python manage.py makemigrations
+	docker compose exec web python manage.py migrate

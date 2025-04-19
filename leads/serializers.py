@@ -1,22 +1,24 @@
 from rest_framework import serializers
+
 from .models import Lead
 
-ALLOWED_FILE_TYPES = ['application/pdf']
+ALLOWED_FILE_TYPES = ["application/pdf"]
 MAX_FILE_SIZE_MB = 5
+
 
 class LeadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lead
         fields = [
-            'id',
-            'first_name',
-            'last_name',
-            'email',
-            'resume',
-            'state',
-            'submitted_at',
+            "id",
+            "first_name",
+            "last_name",
+            "email",
+            "resume",
+            "state",
+            "submitted_at",
         ]
-        read_only_fields = ['id', 'state', 'submitted_at']
+        read_only_fields = ["id", "state", "submitted_at"]
 
     def validate_first_name(self, value):
         if not value.isalpha():
@@ -30,7 +32,9 @@ class LeadSerializer(serializers.ModelSerializer):
 
     def validate_email(self, value):
         if Lead.objects.filter(email=value).exists():
-            raise serializers.ValidationError("This email has already submitted a lead.")
+            raise serializers.ValidationError(
+                "This email has already submitted a lead."
+            )
         return value
 
     def validate_resume(self, file):
